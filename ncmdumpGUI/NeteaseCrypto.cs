@@ -173,6 +173,7 @@ namespace ncmdumpGUI
             attachedPictureFrames[0] = attachedPictureFrame;
             tags.Pictures = attachedPictureFrames;
             audioFile.Save();
+            _file.Close();
         }
     }
 }

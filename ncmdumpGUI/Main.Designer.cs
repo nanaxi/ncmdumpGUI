@@ -142,7 +142,7 @@
             this.MinimumSize = new System.Drawing.Size(549, 243);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ncmdumpGUI by kpali v1.2";
+            this.Text = "ncmdumpGUI by CoolBoy DJH v1.0";
             this.Load += new System.EventHandler(this.Main_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
