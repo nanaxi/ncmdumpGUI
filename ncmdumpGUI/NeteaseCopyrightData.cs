@@ -32,7 +32,7 @@ namespace ncmdumpGUI
         public string AlbumPic { get; set; }
 
         [DataMember(Name = "bitrate")]
-        public int Bitrate { get; set; }
+        public string Bitrate { get; set; }//1
 
         [DataMember(Name = "mp3DocId")]
         public string Mp3DocId { get; set; }
@@ -41,7 +41,7 @@ namespace ncmdumpGUI
         public int Duration { get; set; }
 
         [DataMember(Name = "mvId")]
-        public int MvId { get; set; }
+        public string MvId { get; set; }//1
 
         [DataMember(Name = "alias")]
         public List<string> Alias { get; set; }
