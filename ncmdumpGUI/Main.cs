@@ -26,11 +26,12 @@ namespace ncmdumpGUI
             StreamReader configFileReader = null;
             try
             {
+                //先读config文件,查以前读取的文件目录
                 configFileInfo = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "config");
                 if (configFileInfo.Exists)
                 {
                     configFileReader = configFileInfo.OpenText();
-                    while(!configFileReader.EndOfStream)
+                    while (!configFileReader.EndOfStream)
                     {
                         String line = configFileReader.ReadLine().Trim();
                         if (String.IsNullOrEmpty(line) || !line.Contains("="))
@@ -84,6 +85,23 @@ namespace ncmdumpGUI
             }
         }
 
+        private void Music_DragEnter(object sender, DragEventArgs e)
+        {
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Link;
+            else e.Effect = DragDropEffects.None;
+        }
+
+        private void Music_DragDrop(object sender, DragEventArgs e)
+        {
+
+            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            DirectoryInfo temp = Directory.GetParent(path);
+            txtNcmFolderPath.Text = temp.FullName;
+            txtMp3FolderPath.Text = "";
+        }
+
         Thread backgroundWork;
         delegate void DelUIThreadOperation();
         DelUIThreadOperation delUIThreadOperation;
@@ -114,8 +132,27 @@ namespace ncmdumpGUI
                     ncmFolderPath = this.txtNcmFolderPath.Text;
                     mp3FolderPath = this.txtMp3FolderPath.Text;
                 });
+
                 asyncResult = BeginInvoke(delUIThreadOperation);
                 EndInvoke(asyncResult);
+
+                if (mp3FolderPath.Length < 1)
+                {
+                    string newTransformedPath = Path.Combine(ncmFolderPath, "Transformed");
+                    if (!Directory.Exists(mp3FolderPath))
+                    {
+                        Directory.CreateDirectory(newTransformedPath);
+                    }
+
+                    mp3FolderPath = newTransformedPath;
+                }
+                else
+                {
+                    if (!Directory.Exists(mp3FolderPath))
+                    {
+                        Directory.CreateDirectory(mp3FolderPath);
+                    }
+                }
 
                 StreamWriter configFileWriter = null;
                 if (configFileInfo.Exists)
@@ -142,11 +179,12 @@ namespace ncmdumpGUI
                     BeginInvoke(progressDialogControl.delProgressDlg, ProgressStatusType.BackgroundWorkUpdate, "转换：" + fileInfo.Name);
                     NeteaseCrypto neteaseFile = new NeteaseCrypto(fileInfo);
                     neteaseFile.Dump(mp3FolderPath);
+
                 }
 
                 delUIThreadOperation = new DelUIThreadOperation(delegate ()
                 {
-                    MessageBox.Show("转换完成！","", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("转换完成！", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 });
                 asyncResult = BeginInvoke(delUIThreadOperation);
                 EndInvoke(asyncResult);

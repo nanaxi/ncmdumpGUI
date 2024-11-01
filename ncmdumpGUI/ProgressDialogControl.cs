@@ -56,7 +56,7 @@ namespace ncmdumpGUI
             switch (progressStatusType)
             {
                 case ProgressStatusType.BackgroundWorkStart:
-                    progressDlg = new ProgressDlg(content, "正在进行");
+                    progressDlg = new ProgressDlg(content, "玛卡巴卡boom...");
                     progressDlg.SetCancelEvent(_cancelEvent);
                     progressDlg.ShowDialog();
                     return;

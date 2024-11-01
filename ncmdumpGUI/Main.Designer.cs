@@ -62,12 +62,15 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 21);
+            this.label3.Location = new System.Drawing.Point(186, 30);
+            this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 12);
+            this.label3.Size = new System.Drawing.Size(149, 12);
             this.label3.TabIndex = 0;
-            this.label3.Text = "将ncm文件转成mp3文件";
+            this.label3.Text = "将ncm文件拖拽转成mp3文件";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
             // 
@@ -95,6 +98,7 @@
             // 
             // txtMp3FolderPath
             // 
+            this.txtMp3FolderPath.AllowDrop = true;
             this.txtMp3FolderPath.Location = new System.Drawing.Point(95, 74);
             this.txtMp3FolderPath.Name = "txtMp3FolderPath";
             this.txtMp3FolderPath.Size = new System.Drawing.Size(313, 21);
@@ -112,6 +116,7 @@
             // 
             // txtNcmFolderPath
             // 
+            this.txtNcmFolderPath.AllowDrop = true;
             this.txtNcmFolderPath.Location = new System.Drawing.Point(95, 28);
             this.txtNcmFolderPath.Name = "txtNcmFolderPath";
             this.txtNcmFolderPath.Size = new System.Drawing.Size(313, 21);
@@ -129,6 +134,7 @@
             // 
             // Main
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(533, 204);
@@ -142,8 +148,10 @@
             this.MinimumSize = new System.Drawing.Size(549, 243);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ncmdumpGUI by CoolBoy DJH v1.0";
+            this.Text = "ncmdump_CoolBoy DJH v1.1";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Music_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Music_DragEnter);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
